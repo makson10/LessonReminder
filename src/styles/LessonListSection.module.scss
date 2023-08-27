@@ -1,0 +1,9 @@
+#lessonListSection {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+
+	padding: 2rem;
+	height: 100vh;
+	background-color: var(--blue-main-color);
+}

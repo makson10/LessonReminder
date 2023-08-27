@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+	:root {
+		--blue-main-color: #18122b;
+		--blue-secondary-color: #393053;
+		--blue-third-color: #443c68;
+		--blue-fourth-color: #635985;
+		--blue-fifth-color: #4e325b;
+		--blue-loader-color: #0074d9;
+
+		--pink-main-color: #ffb3a7;
+		--pink-secondary-color: #ffc0cb;
+		--pink-third-color: #f08f90;
+		--pink-fourth-color: #f47983;
+		--pink-fifth-color: #f58f84;
+		--pink-loader-color: #ed4972;
+
+		--third-blue-end-color: #414141;
+		--fourth-blue-end-color: #313131;
+		--third-pink-end-color: #bc8f8f;
+		--fourth-pink-end-color: #b59f9f;
+
+		--third-blue-start-color: #4e9f3d;
+		--fourth-blue-start-color: #d8e9a8;
+		--third-pink-start-color: #009e60;
+		--fourth-pink-start-color: #d8e9a8;
+	}
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	user-select: none;
+}
+
+body {
+	font-family: sans-serif;
+	color: white;
+	overflow: hidden;
+}

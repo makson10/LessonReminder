@@ -1,0 +1,34 @@
+#loader-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+}
+
+#loader {
+	position: relative;
+	width: 60px;
+	height: 60px;
+}
+
+#loader::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 60px;
+	height: 60px;
+	border-radius: 50%;
+	border: 9px solid #eee;
+	border-top-color: #0074d9;
+	animation: loader 1s ease-in-out infinite;
+}
+
+@keyframes loader {
+	0% {
+		transform: rotate(0);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}

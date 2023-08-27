@@ -1,0 +1,40 @@
+#ListHeader {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+
+	#lessonListTitle {
+		width: fit-content;
+		font-size: 1.2rem;
+	}
+
+	#lessonListHWMessageLink {
+		font-size: 1rem;
+		width: fit-content;
+
+		display: flex;
+		align-items: center;
+
+		text-decoration: none;
+		color: white;
+		background-color: transparent;
+		border: none;
+		padding-left: 0;
+		transition: all 50ms linear;
+
+		&:hover {
+			transform: translateX(4px);
+		}
+
+		&:visited {
+			text-decoration: none;
+			color: white;
+		}
+
+		&:focus-visible {
+			outline: none;
+			text-decoration: none;
+			color: white;
+		}
+	}
+}

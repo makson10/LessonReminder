@@ -1,0 +1,56 @@
+{
+	"name": "LessonReminder",
+	"version": "4.0.0",
+	"main": "dist-electron/main/index.js",
+	"description": "Lesson Reminder",
+	"author": "makson94021",
+	"license": "MIT",
+	"private": true,
+	"debug": {
+		"env": {
+			"VITE_DEV_SERVER_URL": "http://127.0.0.1:7777/"
+		}
+	},
+	"scripts": {
+		"dev": "vite",
+		"build": "tsc && vite build && electron-builder",
+		"preview": "vite preview",
+		"pree2e": "vite build --mode=test",
+		"e2e": "playwright test"
+	},
+	"dependencies": {
+		"@reduxjs/toolkit": "^1.9.5",
+		"@types/auto-launch": "^5.0.2",
+		"@types/classnames": "^2.3.1",
+		"@types/electron": "^1.6.10",
+		"@types/node-cron": "^3.0.7",
+		"auto-launch": "^5.0.5",
+		"axios": "^1.4.0",
+		"node-cron": "^3.0.2",
+		"react-redux": "^8.1.2",
+		"react-responsive": "^9.0.2",
+		"swr": "^2.2.1"
+	},
+	"devDependencies": {
+		"@playwright/test": "^1.31.0",
+		"@types/react": "^18.0.28",
+		"@types/react-dom": "^18.0.11",
+		"@vitejs/plugin-react": "^3.1.0",
+		"autoprefixer": "^10.4.15",
+		"electron": "^22.3.5",
+		"electron-builder": "^23.6.0",
+		"postcss": "^8.4.28",
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0",
+		"sass": "^1.58.3",
+		"tailwindcss": "^3.3.3",
+		"typescript": "^4.9.5",
+		"vite": "^4.1.4",
+		"vite-electron-plugin": "^0.8.2",
+		"vite-plugin-electron": "^0.11.1",
+		"vite-plugin-electron-renderer": "^0.12.1"
+	},
+	"engines": {
+		"node": "^14.18.0 || >=16.0.0"
+	}
+}
