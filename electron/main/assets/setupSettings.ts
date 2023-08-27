@@ -9,6 +9,7 @@ const setupSettings = async () => {
 		showSecondNotification: true,
 		leaveNotificationOpen: false,
 		isBlueTheme: false,
+        showGeometricPatterns: false
 	};
 
 	if (!existsSync('settings.json')) {

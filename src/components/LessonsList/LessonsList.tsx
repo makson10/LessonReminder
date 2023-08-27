@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import LessonSection from './LessonsSection';
 import List from './List/List';
-import LessonRow from '@components/LessonRow/LessonRow';
-import { IDayTime, ScheduleType } from '../../types/lessonTypes';
+import LessonRow from '@/components/LessonRow/LessonRow';
+import { IDayTime, ScheduleType } from '@/types/lessonTypes';
 
 interface Props {
 	lessonsSchedule: ScheduleType;

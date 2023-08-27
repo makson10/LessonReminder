@@ -1,10 +1,10 @@
-import Section from '../components/Section';
-import sliderStyle from '@/styles/slider.module.scss';
-import { RootState } from '@/context/settings/store';
-import { useSelector, useDispatch } from 'react-redux/es/exports';
-import { toggleSetting } from '@/context/settings/slice';
 import { ipcRenderer } from 'electron';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '@/context/settings/store';
+import { toggleSetting } from '@/context/settings/slice';
+import Section from '../components/Section';
 import Field from '../components/Field';
+import sliderStyle from '@/styles/slider.module.scss';
 
 export default function ThemeSection() {
 	const settings = useSelector((state: RootState) => state.settings);

@@ -1,5 +1,5 @@
 import { shell } from 'electron';
-import { ILesson } from '../types/lessonTypes';
+import { ILesson } from '@/types/lessonTypes';
 
 export default function useNotificaion(
 	lesson: ILesson,

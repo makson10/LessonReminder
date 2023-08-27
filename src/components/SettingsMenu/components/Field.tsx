@@ -1,11 +1,11 @@
 import { useDispatch } from 'react-redux/es/hooks/useDispatch';
 import { toggleSetting } from '@/context/settings/slice';
-import { SettingsInitialValue } from '../../../types/settingsTypes';
+import { ISettings } from '@/types/settingsTypes';
 
 interface Props {
 	title: string;
 	checked: boolean;
-	settingName: keyof SettingsInitialValue;
+	settingName: keyof ISettings;
 	disabled?: boolean;
 }
 

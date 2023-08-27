@@ -1,9 +1,7 @@
-import fs from 'node:fs/promises';
-import { ISettings } from '../../../types/settingsTypes';
-import Field from '../components/Field';
-import Section from '../components/Section';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/context/settings/store';
+import Field from '../components/Field';
+import Section from '../components/Section';
 
 export default function MainSettingsSection() {
 	const settings = useSelector((state: RootState) => state.settings);

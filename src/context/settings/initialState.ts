@@ -1,6 +1,6 @@
-import { SettingsInitialValue } from '@/types/settingsTypes';
+import { ISettings } from '@/types/settingsTypes';
 
-const initialState: SettingsInitialValue = {
+const initialState: ISettings = {
 	startWithWindows: true,
 	disableNotifications: false,
 	showSecondNotification: true,

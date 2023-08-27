@@ -1,16 +1,9 @@
 import { useEffect, useRef, useState, LegacyRef } from 'react';
 import { shell } from 'electron';
-const cron = require('node-cron');
-import useNotificaion from '@/hooks/useNotification';
-import {
-	formattingTimeToFirstNotification,
-	formattingTimeToSecondNotification,
-	checkLessonTimeState,
-} from '@/assets/formattingData';
-import { ILesson, IDayTime } from '../../types/lessonTypes';
+import { ILesson, IDayTime } from '@/types/lessonTypes';
+import useFormatData from '@/hooks/useFormatData';
+import useScheduledReminder from '@/hooks/useScheduledReminder';
 import styles from '@/styles/LessonRow.module.scss';
-import { useSelector } from 'react-redux';
-import { RootState } from '@/context/settings/store';
 
 interface Props {
 	lessonData: ILesson;
@@ -19,71 +12,19 @@ interface Props {
 
 export default function LessonRow({ lessonData, dayTime }: Props) {
 	const [lesson, setLesson] = useState(lessonData);
-	const settings = useSelector((state: RootState) => state.settings);
-
-	const { createFirstNotification, createSecondNotification } = useNotificaion(
-		lesson,
-		settings.leaveNotificationOpen
-	);
+	const { checkLessonTimeState, checkIsLinkValid } = useFormatData();
+	useScheduledReminder(lesson);
 
 	const [didLessonStart, setDidLessonStart] = useState<boolean>(false);
 	const [didLessonEnd, setDidLessonEnd] = useState<boolean>(false);
 
-	const [isDisabled, setIsDisabled] = useState<boolean>(false);
+	const [isLinkDisabled, setIsLinkDisabled] = useState<boolean>(false);
 	const clickSoundRef = useRef<HTMLAudioElement>();
-	const date = new Date();
 
 	const handleClickLink = () => {
 		clickSoundRef?.current?.play();
 		shell.openExternal(lesson.link);
 	};
-
-	useEffect(() => {
-		if (settings.disableNotifications) return;
-		if (date.getDay() === 0 || date.getDay() === 6) return;
-
-		const timeToFirstNotification = formattingTimeToFirstNotification(
-			lesson.time
-		);
-
-		const task = cron.schedule(
-			`0-59 ${timeToFirstNotification.minute} ${timeToFirstNotification.hour} * * *`,
-			() => {
-				createFirstNotification();
-				setTimeout(() => {
-					task.stop();
-				}, 1000);
-			}
-		);
-
-		return () => {
-			task.stop();
-		};
-	}, [settings.disableNotifications]);
-
-	useEffect(() => {
-		if (settings.disableNotifications || !settings.showSecondNotification)
-			return;
-		if (date.getDay() === 0 || date.getDay() === 6) return;
-
-		const timeToSecondNotification = formattingTimeToSecondNotification(
-			lesson.time
-		);
-
-		const task2 = cron.schedule(
-			`0-59 ${timeToSecondNotification.minute} ${timeToSecondNotification.hour} * * *`,
-			() => {
-				createSecondNotification();
-				setTimeout(() => {
-					task2.stop();
-				}, 1000);
-			}
-		);
-
-		return () => {
-			task2.stop();
-		};
-	}, [settings.disableNotifications, settings.showSecondNotification]);
 
 	useEffect(() => {
 		if (!+dayTime.day) return;
@@ -103,12 +44,8 @@ export default function LessonRow({ lessonData, dayTime }: Props) {
 	}, [lesson.time]);
 
 	useEffect(() => {
-		if (!lesson.link) return setIsDisabled(true);
-		const lessonLink = lesson.link.trim();
-
-		if (typeof lessonLink !== 'string' || lessonLink.slice(0, 4) !== 'http') {
-			setIsDisabled(true);
-		}
+		const shouldDisableLink = !!checkIsLinkValid(lesson.link);
+		setIsLinkDisabled(shouldDisableLink);
 	}, [lesson.link]);
 
 	useEffect(() => {
@@ -149,10 +86,10 @@ export default function LessonRow({ lessonData, dayTime }: Props) {
 					<button
 						className={styles.linkButton}
 						onClick={handleClickLink}
-						disabled={isDisabled}>
+						disabled={isLinkDisabled}>
 						<img
 							className={`w-[24px] h-[24px] ${
-								isDisabled && 'opacity-60'
+								isLinkDisabled && 'opacity-60'
 							} focus-visible:outline-none`}
 							src="./leave-icon.png"
 							alt="#"
