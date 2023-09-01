@@ -1,6 +1,6 @@
+import { ISettings } from '../../../src/types/settingsTypes';
 import fs from 'node:fs/promises';
 import { existsSync } from 'node:fs';
-import { ISettings } from '../../../src/types/settingsTypes';
 
 const setupSettings = async () => {
 	const defaultSettings: ISettings = {
@@ -9,7 +9,7 @@ const setupSettings = async () => {
 		showSecondNotification: true,
 		leaveNotificationOpen: false,
 		isBlueTheme: false,
-        showGeometricPatterns: false
+		showGeometricPatterns: false,
 	};
 
 	if (!existsSync('settings.json')) {

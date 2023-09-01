@@ -1,4 +1,4 @@
-import { useDispatch } from 'react-redux/es/hooks/useDispatch';
+import { useDispatch } from 'react-redux';
 import { toggleSetting } from '@/context/settings/slice';
 import { ISettings } from '@/types/settingsTypes';
 

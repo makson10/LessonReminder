@@ -22,7 +22,9 @@ export default function useNotificaion(
 		});
 
 		notification.onclick = () => {
-			shell.openExternal(lesson.link);
+			if (lesson.link) {
+				shell.openExternal(lesson.link);
+			}
 		};
 	};
 

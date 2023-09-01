@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { ISettings } from '@/types/settingsTypes';
+import { settingsInitialValue as initialState } from '@/initialValues';
 import fs from 'node:fs/promises';
-import initialState from './initialState';
 
 export const settingsSlice = createSlice({
 	name: 'settings',
@@ -14,10 +14,7 @@ export const settingsSlice = createSlice({
 				...action.payload,
 			};
 		},
-		toggleSetting: (
-			state,
-			action: PayloadAction<keyof ISettings>
-		) => {
+		toggleSetting: (state, action: PayloadAction<keyof ISettings>) => {
 			state[action.payload] = !state[action.payload];
 			fs.writeFile('settings.json', JSON.stringify(state));
 		},

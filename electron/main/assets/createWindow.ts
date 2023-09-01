@@ -19,8 +19,8 @@ const createWindow = async (tray: Tray) => {
 		},
 	});
 
-	win.menuBarVisible = false; //* For Dev
-	// Menu.setApplicationMenu(null); //* For Prod
+	// win.menuBarVisible = false; //* For Dev
+	Menu.setApplicationMenu(null); //* For Prod
 
 	if (process.env.VITE_DEV_SERVER_URL) {
 		win.loadURL(url);

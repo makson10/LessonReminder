@@ -4,9 +4,6 @@ const terminateOtherAppInstance = async () => {
 	await exec(
 		'tasklist | findstr "LessonReminder.exe"',
 		(err, stdout, stderr) => {
-			if (err) return console.log(err);
-			if (stderr) return console.log(stderr);
-
 			const tasks = stdout.split('\n').filter((task) => task);
 			if (!tasks.length || tasks.length <= 4) return;
 

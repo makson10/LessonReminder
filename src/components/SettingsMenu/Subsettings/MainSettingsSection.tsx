@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
-import { RootState } from '@/context/settings/store';
 import Field from '../components/Field';
 import Section from '../components/Section';
+import { RootState } from '@/context/settings/store';
 
 export default function MainSettingsSection() {
 	const settings = useSelector((state: RootState) => state.settings);

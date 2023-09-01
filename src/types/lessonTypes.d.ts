@@ -6,7 +6,7 @@ export interface ScheduleType {
 export interface ILesson {
 	time: ILessonTime;
 	title: string;
-	link: string;
+	link: string | null;
 }
 
 export interface ILessonTime {

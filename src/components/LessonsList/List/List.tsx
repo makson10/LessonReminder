@@ -1,8 +1,8 @@
 import { ReactNode } from 'react';
 import ListHeader from './ListHeader';
 import GeometricPatterns from './GeometricPatterns';
-import { useSelector } from 'react-redux';
 import { RootState } from '@/context/settings/store';
+import { useSelector } from 'react-redux';
 
 interface Props {
 	children: ReactNode;

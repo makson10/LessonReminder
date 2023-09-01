@@ -71,7 +71,7 @@ export default function useFormatData() {
 		};
 	};
 
-	const checkIsLinkValid = (link: string) => {
+	const checkIsLinkValid = (link: string | null) => {
 		if (!link) return true;
 		link = link.trim();
 

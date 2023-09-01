@@ -1,9 +1,9 @@
 import { ipcRenderer } from 'electron';
 import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '@/context/settings/store';
-import { toggleSetting } from '@/context/settings/slice';
 import Section from '../components/Section';
 import Field from '../components/Field';
+import { RootState } from '@/context/settings/store';
+import { toggleSetting } from '@/context/settings/slice';
 import sliderStyle from '@/styles/slider.module.scss';
 
 export default function ThemeSection() {

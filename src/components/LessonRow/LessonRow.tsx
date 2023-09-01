@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState, LegacyRef } from 'react';
 import { shell } from 'electron';
-import { ILesson, IDayTime } from '@/types/lessonTypes';
 import useFormatData from '@/hooks/useFormatData';
 import useScheduledReminder from '@/hooks/useScheduledReminder';
+import { ILesson, IDayTime } from '@/types/lessonTypes';
 import styles from '@/styles/LessonRow.module.scss';
 
 interface Props {
@@ -23,7 +23,7 @@ export default function LessonRow({ lessonData, dayTime }: Props) {
 
 	const handleClickLink = () => {
 		clickSoundRef?.current?.play();
-		shell.openExternal(lesson.link);
+		shell.openExternal(lesson.link!);
 	};
 
 	useEffect(() => {

@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
-import axios from 'axios';
-import useSWR from 'swr';
 import LessonList from './components/LessonsList/LessonsList';
 import LoaderScreen from './components/LoaderScreen/LoaderScreen';
+import useSWR from 'swr';
+import axios from 'axios';
 
 const fetcher = (url: string) => axios.get(url).then((res) => res.data);
 const refreshInterval = 5 * 60 * 1000;
