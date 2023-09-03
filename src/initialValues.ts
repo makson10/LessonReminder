@@ -5,8 +5,9 @@ const settingsInitialValue: ISettings = {
 	disableNotifications: false,
 	showSecondNotification: true,
 	leaveNotificationOpen: false,
-	isBlueTheme: false,
+	isDarkTheme: false,
 	showGeometricPatterns: false,
+    automaticallyToggleColorTheme: true
 };
 
 export { settingsInitialValue };

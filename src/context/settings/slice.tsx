@@ -18,8 +18,18 @@ export const settingsSlice = createSlice({
 			state[action.payload] = !state[action.payload];
 			fs.writeFile('settings.json', JSON.stringify(state));
 		},
+		setColorTheme: (state, action: PayloadAction<string>) => {
+			state.isDarkTheme =
+				action.payload === 'light'
+					? false
+					: action.payload === 'dark'
+					? true
+					: false;
+			fs.writeFile('settings.json', JSON.stringify(state));
+		},
 	},
 });
 
-export const { setSettings, toggleSetting } = settingsSlice.actions;
+export const { setSettings, toggleSetting, setColorTheme } =
+	settingsSlice.actions;
 export default settingsSlice.reducer;

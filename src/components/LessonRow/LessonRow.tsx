@@ -27,6 +27,10 @@ export default function LessonRow({ lessonData, dayTime }: Props) {
 	};
 
 	useEffect(() => {
+		setLesson(lessonData);
+	}, [lessonData]);
+
+	useEffect(() => {
 		if (!+dayTime.day) return;
 
 		const lessonTimeState = checkLessonTimeState(lesson.time, dayTime);
@@ -47,10 +51,6 @@ export default function LessonRow({ lessonData, dayTime }: Props) {
 		const shouldDisableLink = !!checkIsLinkValid(lesson.link);
 		setIsLinkDisabled(shouldDisableLink);
 	}, [lesson.link]);
-
-	useEffect(() => {
-		setLesson(lessonData);
-	}, [lessonData]);
 
 	return (
 		<>

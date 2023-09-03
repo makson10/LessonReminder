@@ -1,9 +1,10 @@
+import { useEffect } from 'react';
 import { ipcRenderer } from 'electron';
 import { useSelector, useDispatch } from 'react-redux';
 import Section from '../components/Section';
 import Field from '../components/Field';
 import { RootState } from '@/context/settings/store';
-import { toggleSetting } from '@/context/settings/slice';
+import { toggleSetting, setColorTheme } from '@/context/settings/slice';
 import sliderStyle from '@/styles/slider.module.scss';
 
 export default function ThemeSection() {
@@ -12,8 +13,28 @@ export default function ThemeSection() {
 
 	const toggleTheme = async () => {
 		ipcRenderer.invoke('dark-mode:toggle');
-		dispatch(toggleSetting('isBlueTheme'));
+		dispatch(toggleSetting('isDarkTheme'));
 	};
+
+	const setLightTheme = () => {
+		dispatch(setColorTheme('light'));
+		ipcRenderer.invoke('dark-mode:setLightTheme');
+	};
+
+	const setDarkTheme = () => {
+		dispatch(setColorTheme('dark'));
+		ipcRenderer.invoke('dark-mode:setDarkTheme');
+	};
+
+	useEffect(() => {
+		if (!settings.automaticallyToggleColorTheme) return;
+
+		const date = new Date();
+		const currentHour = date.getHours();
+
+		if (currentHour >= 7 && currentHour < 18) setLightTheme();
+		if (currentHour >= 18) setDarkTheme();
+	}, [settings.automaticallyToggleColorTheme]);
 
 	return (
 		<Section partTitle="Тема">
@@ -23,7 +44,7 @@ export default function ThemeSection() {
 					<input
 						className="hidden"
 						type="checkbox"
-						defaultChecked={!settings.isBlueTheme}
+						defaultChecked={!settings.isDarkTheme}
 						onClick={toggleTheme}
 					/>
 					<span className={sliderStyle.slider}></span>
@@ -34,7 +55,12 @@ export default function ThemeSection() {
 				title="Показывать геометрические рисунки"
 				checked={settings.showGeometricPatterns}
 				settingName="showGeometricPatterns"
-				disabled={settings.isBlueTheme}
+				disabled={settings.isDarkTheme}
+			/>
+			<Field
+				title="Автоматически менять тему"
+				checked={settings.automaticallyToggleColorTheme}
+				settingName="automaticallyToggleColorTheme"
 			/>
 		</Section>
 	);

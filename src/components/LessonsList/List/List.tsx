@@ -20,7 +20,7 @@ export default function List({ children, title }: Props) {
 					{children}
 				</div>
 			</div>
-			{!settings.isBlueTheme && settings.showGeometricPatterns && (
+			{!settings.isDarkTheme && settings.showGeometricPatterns && (
 				<GeometricPatterns />
 			)}
 		</>

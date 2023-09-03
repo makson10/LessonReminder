@@ -8,8 +8,9 @@ const setupSettings = async () => {
 		disableNotifications: false,
 		showSecondNotification: true,
 		leaveNotificationOpen: false,
-		isBlueTheme: false,
+		isDarkTheme: false,
 		showGeometricPatterns: false,
+		automaticallyToggleColorTheme: true,
 	};
 
 	if (!existsSync('settings.json')) {

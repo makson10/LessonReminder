@@ -1,7 +1,7 @@
 import { nativeTheme } from 'electron';
 
-const setupDefaultColorTheme = async (isBlueTheme: boolean) => {
-	nativeTheme.themeSource = isBlueTheme ? 'dark' : 'light';
+const setupDefaultColorTheme = async (isDarkTheme: boolean) => {
+	nativeTheme.themeSource = isDarkTheme ? 'dark' : 'light';
 };
 
 module.exports = setupDefaultColorTheme;

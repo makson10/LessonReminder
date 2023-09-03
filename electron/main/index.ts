@@ -33,7 +33,7 @@ app
 	.then(async () => await setupAutostart(settings.startWithWindows))
 	.then(async () => (tray = await setupTray()))
 	.then(async () => (win = await createWindow(tray)))
-	.then(async () => await setupDefaultColorTheme(settings.isBlueTheme))
+	.then(async () => await setupDefaultColorTheme(settings.isDarkTheme))
 	.then(async () => await setupGlobalShortcut(win))
 	.then(async () => await terminateOtherAppInstance());
 
@@ -81,4 +81,12 @@ ipcMain.handle('dark-mode:toggle', () => {
 	}
 
 	return nativeTheme.shouldUseDarkColors;
+});
+
+ipcMain.handle('dark-mode:setLightTheme', () => {
+	nativeTheme.themeSource = 'light';
+});
+
+ipcMain.handle('dark-mode:setDarkTheme', () => {
+	nativeTheme.themeSource = 'dark';
 });
