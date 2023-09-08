@@ -47,14 +47,6 @@ const createWindow = async (tray: Tray) => {
 		autoUpdater.checkForUpdatesAndNotify();
 	});
 
-	autoUpdater.on('update-available', () => {
-		console.log('have new updates available');
-	});
-
-	autoUpdater.on('update-downloaded', () => {
-        autoUpdater.quitAndInstall();
-	});
-
 	return win;
 };
 

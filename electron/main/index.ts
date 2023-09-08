@@ -1,4 +1,11 @@
-import { app, autoUpdater, BrowserWindow, ipcMain, nativeTheme, Tray } from 'electron';
+import {
+	app,
+	autoUpdater,
+	BrowserWindow,
+	ipcMain,
+	nativeTheme,
+	Tray,
+} from 'electron';
 import { join } from 'node:path';
 import { ISettings } from '../../src/types/settingsTypes';
 
@@ -95,6 +102,6 @@ ipcMain.on('app_version', (event) => {
 	event.sender.send('app_version', { version: app.getVersion() });
 });
 
-ipcMain.on('restart_app', () => {
+autoUpdater.on('update-downloaded', () => {
     autoUpdater.quitAndInstall();
 });

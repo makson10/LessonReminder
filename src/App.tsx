@@ -32,7 +32,7 @@ export default function App() {
 	}, []);
 
 	useEffect(() => {
-		console.log(app.getVersion());
+		app.whenReady().then(() => console.log('fuck', app.getVersion()));
 	}, []);
 
 	if (isLoading) return <LoaderScreen />;
