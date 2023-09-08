@@ -51,6 +51,8 @@ export default function App() {
 
 			document.body.appendChild(updateMessage);
 			console.log('UpdateDownloaded');
+
+			ipcRenderer.send('restart_app');
 		});
 	}, []);
 
