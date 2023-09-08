@@ -1,6 +1,5 @@
 import {
 	app,
-	autoUpdater,
 	BrowserWindow,
 	ipcMain,
 	nativeTheme,
@@ -96,12 +95,4 @@ ipcMain.handle('dark-mode:setLightTheme', () => {
 
 ipcMain.handle('dark-mode:setDarkTheme', () => {
 	nativeTheme.themeSource = 'dark';
-});
-
-ipcMain.on('app_version', (event) => {
-	event.sender.send('app_version', { version: app.getVersion() });
-});
-
-autoUpdater.on('update-downloaded', () => {
-    autoUpdater.quitAndInstall();
 });

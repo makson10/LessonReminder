@@ -1,5 +1,4 @@
 import { BrowserWindow, Menu, Tray, shell } from 'electron';
-import { autoUpdater } from 'electron-updater';
 import { join } from 'path';
 
 const preload = join(__dirname, '../../preload/index.js');
@@ -20,8 +19,8 @@ const createWindow = async (tray: Tray) => {
 		},
 	});
 
-	win.menuBarVisible = false; //* For Dev
-	// Menu.setApplicationMenu(null); //* For Prod
+	// win.menuBarVisible = false; //* For Dev
+	Menu.setApplicationMenu(null); //* For Prod
 
 	if (process.env.VITE_DEV_SERVER_URL) {
 		win.loadURL(url);
@@ -41,10 +40,6 @@ const createWindow = async (tray: Tray) => {
 	win.on('close', (event) => {
 		event.preventDefault();
 		win.hide();
-	});
-
-	win.once('ready-to-show', () => {
-		autoUpdater.checkForUpdatesAndNotify();
 	});
 
 	return win;

@@ -3,7 +3,6 @@ import LessonList from './components/LessonsList/LessonsList';
 import LoaderScreen from './components/LoaderScreen/LoaderScreen';
 import useSWR from 'swr';
 import axios from 'axios';
-import { app } from 'electron';
 
 const fetcher = (url: string) => axios.get(url).then((res) => res.data);
 const refreshInterval = 5 * 60 * 1000;
@@ -29,10 +28,6 @@ export default function App() {
 		return () => {
 			window.removeEventListener('keydown', handleTabPressed);
 		};
-	}, []);
-
-	useEffect(() => {
-		app.whenReady().then(() => console.log('fuck', app.getVersion()));
 	}, []);
 
 	if (isLoading) return <LoaderScreen />;
