@@ -49,11 +49,10 @@ const createWindow = async (tray: Tray) => {
 
 	autoUpdater.on('update-available', () => {
 		console.log('have new updates available');
-		win.webContents.send('update-available');
 	});
 
 	autoUpdater.on('update-downloaded', () => {
-		win.webContents.send('update-downloaded');
+        autoUpdater.quitAndInstall();
 	});
 
 	return win;

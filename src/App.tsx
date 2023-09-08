@@ -3,8 +3,7 @@ import LessonList from './components/LessonsList/LessonsList';
 import LoaderScreen from './components/LoaderScreen/LoaderScreen';
 import useSWR from 'swr';
 import axios from 'axios';
-import { ipcRenderer } from 'electron';
-import { autoUpdater } from 'electron-updater';
+import { app } from 'electron';
 
 const fetcher = (url: string) => axios.get(url).then((res) => res.data);
 const refreshInterval = 5 * 60 * 1000;
@@ -33,27 +32,7 @@ export default function App() {
 	}, []);
 
 	useEffect(() => {
-		ipcRenderer.on('update_available', () => {
-			ipcRenderer.removeAllListeners('update_available');
-
-			const updateMessage = document.createElement('p');
-			updateMessage.innerText = 'UpdateAvailable';
-
-			document.body.appendChild(updateMessage);
-			console.log('UpdateAvailable');
-		});
-
-		ipcRenderer.on('update_downloaded', () => {
-			ipcRenderer.removeAllListeners('update_downloaded');
-
-			const updateMessage = document.createElement('p');
-			updateMessage.innerText = 'UpdateDownloaded';
-
-			document.body.appendChild(updateMessage);
-			console.log('UpdateDownloaded');
-
-			ipcRenderer.send('restart_app');
-		});
+		console.log(app.getVersion());
 	}, []);
 
 	if (isLoading) return <LoaderScreen />;
