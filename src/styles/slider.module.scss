@@ -5,7 +5,7 @@
 	left: 0;
 	right: 0;
 	bottom: 0;
-	background-color: var(--blue-secondary-color);
+	background-color: var(--pink-secondary-color);
 	border-radius: 34px;
 	transition: 0.4s;
 }
@@ -23,11 +23,11 @@
 }
 
 input:checked + .slider {
-	background-color: var(--pink-secondary-color);
+	background-color: var(--blue-secondary-color);
 }
 
 input:focus + .slider {
-	box-shadow: 0 0 1px var(--pink-secondary-color);
+	box-shadow: 0 0 1px var(--blue-secondary-color);
 }
 
 input:checked + .slider:before {

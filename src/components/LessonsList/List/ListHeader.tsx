@@ -16,7 +16,7 @@ export default function ListHeader({ title }: Props) {
 					settings.showGeometricPatterns &&
 					'bg-transparent/30 dark:bg-transparent'
 				}`}>
-				{title}
+				{title.length > 20 ? title.slice(0, 20) + '...' : title}
 			</p>
 			<SettingsMenu />
 		</div>

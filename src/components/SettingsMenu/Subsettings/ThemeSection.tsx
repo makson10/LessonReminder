@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef, LegacyRef } from 'react';
 import { ipcRenderer } from 'electron';
 import { useSelector, useDispatch } from 'react-redux';
 import Section from '../components/Section';
@@ -10,10 +10,11 @@ import sliderStyle from '@/styles/slider.module.scss';
 export default function ThemeSection() {
 	const settings = useSelector((state: RootState) => state.settings);
 	const dispatch = useDispatch();
+	const themeTumblerRef = useRef<HTMLInputElement>();
 
 	const toggleTheme = async () => {
-		ipcRenderer.invoke('dark-mode:toggle');
 		dispatch(toggleSetting('isDarkTheme'));
+		ipcRenderer.invoke('dark-mode:toggle');
 	};
 
 	const setLightTheme = () => {
@@ -26,30 +27,61 @@ export default function ThemeSection() {
 		ipcRenderer.invoke('dark-mode:setDarkTheme');
 	};
 
-	useEffect(() => {
-		if (!settings.automaticallyToggleColorTheme) return;
-
+	const setActualColorTheme = () => {
 		const date = new Date();
 		const currentHour = date.getHours();
 
 		if (currentHour >= 7 && currentHour < 18) setLightTheme();
 		if (currentHour >= 18) setDarkTheme();
+	};
+
+	useEffect(() => {
+		if (!settings.automaticallyToggleColorTheme) return;
+		let setActualColorThemeInterval: NodeJS.Timer;
+
+		setActualColorTheme();
+
+		setActualColorThemeInterval = setInterval(() => {
+			setActualColorTheme();
+		}, 5 * 60 * 1000);
+
+		return () => clearInterval(setActualColorThemeInterval);
 	}, [settings.automaticallyToggleColorTheme]);
+
+	useEffect(() => {
+		if (themeTumblerRef.current)
+			themeTumblerRef.current.checked = settings.isDarkTheme;
+	}, [settings.isDarkTheme]);
 
 	return (
 		<Section partTitle="Тема">
-			<div className="flex flex-row gap-4 items-center">
-				<p className="w-12">Синяя</p>
-				<label className="relative inline-block w-[60px] h-[34px]">
+			<div className="flex flex-row gap-6 items-center">
+				<p
+					className={`w-12 ${
+						settings.automaticallyToggleColorTheme ? 'text-gray-500' : ''
+					}`}>
+					Розовая
+				</p>
+				<label
+					className={`relative inline-block w-[60px] h-[34px] ${
+						settings.automaticallyToggleColorTheme ? 'opacity-60' : ''
+					}`}>
 					<input
 						className="hidden"
 						type="checkbox"
-						defaultChecked={!settings.isDarkTheme}
+						ref={themeTumblerRef as LegacyRef<HTMLInputElement>}
+						defaultChecked={settings.isDarkTheme}
+						disabled={settings.automaticallyToggleColorTheme}
 						onClick={toggleTheme}
 					/>
 					<span className={sliderStyle.slider}></span>
 				</label>
-				<p className="w-12">Розовая</p>
+				<p
+					className={`w-12 ${
+						settings.automaticallyToggleColorTheme ? 'text-gray-500' : ''
+					}`}>
+					Синяя
+				</p>
 			</div>
 			<Field
 				title="Показывать геометрические рисунки"

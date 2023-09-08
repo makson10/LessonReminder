@@ -26,16 +26,26 @@ export default function LessonRow({ lessonData, dayTime }: Props) {
 		shell.openExternal(lesson.link!);
 	};
 
-	useEffect(() => {
-		setLesson(lessonData);
-	}, [lessonData]);
-
-	useEffect(() => {
+	const updateLessonTimeState = () => {
 		if (!+dayTime.day) return;
 
 		const lessonTimeState = checkLessonTimeState(lesson.time, dayTime);
 		setDidLessonStart(lessonTimeState.start);
 		setDidLessonEnd(lessonTimeState.end);
+	};
+
+	useEffect(() => {
+		setLesson(lessonData);
+	}, [lessonData]);
+
+	useEffect(() => {
+		updateLessonTimeState();
+
+		const updateLessonTimeStateInterval = setInterval(() => {
+			updateLessonTimeState();
+		}, 3 * 60 * 1000);
+
+		return () => clearInterval(updateLessonTimeStateInterval);
 	}, [lesson.time, dayTime]);
 
 	useEffect(() => {
@@ -68,7 +78,7 @@ export default function LessonRow({ lessonData, dayTime }: Props) {
 						: 'bg-[--pink-third-color] dark:bg-[--blue-third-color]'
 				}`}>
 				<div
-					className={`rounded-2xl px-[0.6rem] py-[0.4rem] ${
+					className={`rounded-2xl px-[0.6rem] py-[0.4rem] flex flex-col justify-center ${
 						didLessonStart
 							? 'bg-[--fourth-pink-start-color] text-[black] dark:bg-[--fourth-blue-start-color]'
 							: didLessonEnd

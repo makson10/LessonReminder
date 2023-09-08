@@ -14,9 +14,8 @@
 	"scripts": {
 		"dev": "vite",
 		"build": "tsc && vite build && electron-builder",
-		"preview": "vite preview",
-		"pree2e": "vite build --mode=test",
-		"e2e": "playwright test"
+		"deploy": "tsc && vite build && electron-builder build --win --publish always",
+		"preview": "vite preview"
 	},
 	"dependencies": {
 		"@reduxjs/toolkit": "^1.9.5",
@@ -26,6 +25,7 @@
 		"@types/node-cron": "^3.0.7",
 		"auto-launch": "^5.0.5",
 		"axios": "^1.4.0",
+		"electron-updater": "^6.1.4",
 		"node-cron": "^3.0.2",
 		"react-redux": "^8.1.2",
 		"react-responsive": "^9.0.2",
@@ -52,5 +52,9 @@
 	},
 	"engines": {
 		"node": "^14.18.0 || >=16.0.0"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/MaksonGitHub25/LessonReminder.git"
 	}
 }

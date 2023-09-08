@@ -1,8 +1,6 @@
 import { IDayTime, ILessonTime } from '@/types/lessonTypes';
 
 export default function useFormatData() {
-	const currentDate = new Date();
-
 	const formattingTimeToFirstNotification = (lessonTime: ILessonTime) => {
 		const timeToNotification = { ...lessonTime };
 
@@ -36,6 +34,7 @@ export default function useFormatData() {
 	};
 
 	const checkLessonTimeState = (lessonTime: ILessonTime, dayTime: IDayTime) => {
+		const currentDate = new Date();
 		let didLessonStart = false;
 		let didLessonEnd = false;
 
