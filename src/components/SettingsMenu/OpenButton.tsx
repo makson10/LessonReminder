@@ -16,7 +16,7 @@ export default function OpenButton({
 	return (
 		<button
 			className={`z-[20] transition-all duration-[250ms] ${
-				isMenuOpen ? 'translate-x-[-330px]' : 'translate-x-0'
+				isMenuOpen ? 'translate-x-[-360px]' : 'translate-x-0'
 			}`}
 			onClick={handleToggleIsMenuOpen}>
 			<img

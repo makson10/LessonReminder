@@ -1,10 +1,4 @@
-import {
-	app,
-	BrowserWindow,
-	ipcMain,
-	nativeTheme,
-	Tray,
-} from 'electron';
+import { app, BrowserWindow, ipcMain, nativeTheme, Tray } from 'electron';
 import { join } from 'node:path';
 import { ISettings } from '../../src/types/settingsTypes';
 
@@ -15,6 +9,7 @@ process.env.PUBLIC = process.env.VITE_DEV_SERVER_URL
 	: process.env.DIST;
 
 const setupSettings = require('./assets/setupSettings');
+const setupAppIdFile = require('./assets/setupAppIdFile');
 const setupAutostart = require('./assets/setupAutostart');
 const setupTray = require('./assets/setupTray');
 const createWindow = require('./assets/createWindow');
@@ -36,6 +31,7 @@ let settings: ISettings = null;
 app
 	.whenReady()
 	.then(async () => (settings = await setupSettings()))
+	.then(async () => await setupAppIdFile())
 	.then(async () => await setupAutostart(settings.startWithWindows))
 	.then(async () => (tray = await setupTray()))
 	.then(async () => (win = await createWindow(tray)))

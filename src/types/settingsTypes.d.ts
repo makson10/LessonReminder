@@ -3,7 +3,8 @@ export interface ISettings {
 	disableNotifications: boolean;
 	showSecondNotification: boolean;
 	leaveNotificationOpen: boolean;
+	sendTelegramMessage: boolean;
 	isDarkTheme: boolean;
 	showGeometricPatterns: boolean;
-    automaticallyToggleColorTheme: boolean,
+	automaticallyToggleColorTheme: boolean;
 }

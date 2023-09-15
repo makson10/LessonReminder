@@ -8,17 +8,26 @@ const setupSettings = async () => {
 		disableNotifications: false,
 		showSecondNotification: true,
 		leaveNotificationOpen: false,
+		sendTelegramMessage: false,
 		isDarkTheme: false,
 		showGeometricPatterns: false,
 		automaticallyToggleColorTheme: true,
 	};
 
-	if (!existsSync('settings.json')) {
+	if (!existsSync('./settings.json')) {
 		await fs.writeFile('./settings.json', JSON.stringify(defaultSettings));
 	}
 
-	const dataFromSettingsFile = await fs.readFile('settings.json', 'utf-8');
-	return await JSON.parse(dataFromSettingsFile);
+	const dataFromSettingsFile = await fs.readFile('./settings.json', 'utf-8');
+	let settings = defaultSettings;
+
+	try {
+		settings = await JSON.parse(dataFromSettingsFile);
+	} catch (error) {
+		console.log(error);
+	}
+
+	return settings;
 };
 
 module.exports = setupSettings;

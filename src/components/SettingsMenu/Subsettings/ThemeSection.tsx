@@ -31,8 +31,9 @@ export default function ThemeSection() {
 		const date = new Date();
 		const currentHour = date.getHours();
 
-		if (currentHour >= 7 && currentHour < 18) setLightTheme();
-		if (currentHour >= 18) setDarkTheme();
+		if (settings.isDarkTheme && currentHour >= 7 && currentHour < 18)
+			setLightTheme();
+		if (!settings.isDarkTheme && currentHour >= 18) setDarkTheme();
 	};
 
 	useEffect(() => {
@@ -85,13 +86,11 @@ export default function ThemeSection() {
 			</div>
 			<Field
 				title="Показывать геометрические рисунки"
-				checked={settings.showGeometricPatterns}
 				settingName="showGeometricPatterns"
 				disabled={settings.isDarkTheme}
 			/>
 			<Field
 				title="Автоматически менять тему"
-				checked={settings.automaticallyToggleColorTheme}
 				settingName="automaticallyToggleColorTheme"
 			/>
 		</Section>

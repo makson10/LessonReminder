@@ -15,10 +15,8 @@ export default function useScheduledReminder(lesson: ILesson) {
 		formattingTimeToSecondNotification,
 	} = useFormatData();
 
-	const { createFirstNotification, createSecondNotification } = useNotificaion(
-		lesson,
-		settings.leaveNotificationOpen
-	);
+	const { createFirstNotification, createSecondNotification } =
+		useNotificaion(lesson);
 
 	useEffect(() => {
 		if (settings.disableNotifications) return;

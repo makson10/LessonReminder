@@ -36,4 +36,5 @@ yarn.lock
 .env
 todo.txt
 settings.json
+appId.json
 electron-builder.json5
