@@ -67,10 +67,7 @@ export default function useNotificaion(lesson: ILesson) {
 
 		notification.onclick = () => {
 			clearTimeout(sendReminderInTelegramTimeout);
-
-			if (lesson.link) {
-				shell.openExternal(lesson.link);
-			}
+			if (lesson.link) shell.openExternal(lesson.link);
 		};
 
 		notification.onclose = () => clearTimeout(sendReminderInTelegramTimeout);

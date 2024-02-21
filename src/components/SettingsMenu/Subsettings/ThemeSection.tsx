@@ -31,9 +31,10 @@ export default function ThemeSection() {
 		const date = new Date();
 		const currentHour = date.getHours();
 
-		if (settings.isDarkTheme && currentHour >= 7 && currentHour < 18)
+		if (settings.isDarkTheme && currentHour >= 8 && currentHour < 18)
 			setLightTheme();
-		if (!settings.isDarkTheme && currentHour >= 18) setDarkTheme();
+		if (!settings.isDarkTheme && (currentHour >= 18 || currentHour < 8))
+			setDarkTheme();
 	};
 
 	useEffect(() => {

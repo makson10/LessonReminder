@@ -1,6 +1,7 @@
 import { app, BrowserWindow, ipcMain, nativeTheme, Tray } from 'electron';
 import { join } from 'node:path';
 import { ISettings } from '../../src/types/settingsTypes';
+import { autoUpdater } from 'electron-updater';
 
 process.env.DIST_ELECTRON = join(__dirname, '../');
 process.env.DIST = join(process.env.DIST_ELECTRON, '../dist');
@@ -37,7 +38,8 @@ app
 	.then(async () => (win = await createWindow(tray)))
 	.then(async () => await setupDefaultColorTheme(settings.isDarkTheme))
 	.then(async () => await setupGlobalShortcut(win))
-	.then(async () => await terminateOtherAppInstance());
+	.then(async () => await terminateOtherAppInstance())
+	.then(async () => await autoUpdater.checkForUpdatesAndNotify());
 
 app.on('second-instance', () => {
 	if (!win) return;
@@ -91,4 +93,9 @@ ipcMain.handle('dark-mode:setLightTheme', () => {
 
 ipcMain.handle('dark-mode:setDarkTheme', () => {
 	nativeTheme.themeSource = 'dark';
+});
+
+ipcMain.on('get-app-version', (event) => {
+	const appVersion = app.getVersion();
+	event.reply('app-version', appVersion);
 });

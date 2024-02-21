@@ -4,6 +4,7 @@ import useFormatData from '@/hooks/useFormatData';
 import useScheduledReminder from '@/hooks/useScheduledReminder';
 import { ILesson, IDayTime } from '@/types/lessonTypes';
 import styles from '@/styles/LessonRow.module.scss';
+import fs from 'fs';
 
 interface Props {
 	lessonData: ILesson;
@@ -11,6 +12,7 @@ interface Props {
 }
 
 export default function LessonRow({ lessonData, dayTime }: Props) {
+	const didMount = useRef(false);
 	const [lesson, setLesson] = useState(lessonData);
 	const { checkLessonTimeState, checkIsLinkValid } = useFormatData();
 	useScheduledReminder(lesson);
@@ -35,7 +37,34 @@ export default function LessonRow({ lessonData, dayTime }: Props) {
 	};
 
 	useEffect(() => {
-		setLesson(lessonData);
+		if (!didMount.current) {
+			didMount.current = true;
+			return;
+		}
+
+		const editLessonData = async () => {
+			fs.readFile('appId.json', 'utf-8', async (err, rawData) => {
+				if (err) throw new Error(err.message);
+
+				const data = await JSON.parse(rawData);
+				if (data.appId === 'c20a17ae-4801-4784-8ca5-6871be2a4781') {
+					const newLessonData: ILesson = {
+						...lessonData,
+						time: {
+							minute: lessonData.time.minute,
+							hour:
+								typeof lessonData.time.hour === 'string'
+									? parseInt(lessonData.time.hour) - 1
+									: lessonData.time.hour - 1,
+						},
+					};
+
+					setLesson(newLessonData);
+				} else setLesson(lessonData);
+			});
+		};
+
+		editLessonData();
 	}, [lessonData]);
 
 	useEffect(() => {

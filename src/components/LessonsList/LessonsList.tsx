@@ -4,6 +4,7 @@ import List from './List/List';
 import LessonRow from '@/components/LessonRow/LessonRow';
 import { IDayTime, ScheduleType } from '@/types/lessonTypes';
 import LoginWindow from '../LoginWindow/LoginWindow';
+import { ipcRenderer } from 'electron';
 import fs from 'fs';
 
 interface Props {
@@ -19,6 +20,15 @@ export default function LessonList({ lessonsSchedule }: Props) {
 	const [shouldShowLoginWindow, setShouldShowLoginWindow] =
 		useState<boolean>(false);
 	const [dayTime, setDayTime] = useState<IDayTime>(dayTimeInitialValue);
+	const [appVersion, setAppVersion] = useState('1.0.0');
+
+	useEffect(() => {
+		ipcRenderer.send('get-app-version');
+
+		ipcRenderer.on('app-version', (event, version) => {
+			setAppVersion(version);
+		});
+	}, []);
 
 	useEffect(() => {
 		const checkIfAppIdExist = async () => {
@@ -56,6 +66,9 @@ export default function LessonList({ lessonsSchedule }: Props) {
 				<LoginWindow setShouldShowLoginWindow={setShouldShowLoginWindow} />
 			)}
 			<LessonSection>
+				<p className="absolute bottom-[4px] left-[6px] opacity-30">
+					version: {appVersion}
+				</p>
 				<List title={lessonsSchedule.dayTitle}>
 					{lessonsSchedule.lessons.map((lesson, index) => {
 						return (
