@@ -12,7 +12,6 @@ interface Props {
 }
 
 export default function LessonRow({ lessonData, dayTime }: Props) {
-	const didMount = useRef(false);
 	const [lesson, setLesson] = useState(lessonData);
 	const { checkLessonTimeState, checkIsLinkValid } = useFormatData();
 	useScheduledReminder(lesson);
@@ -37,11 +36,6 @@ export default function LessonRow({ lessonData, dayTime }: Props) {
 	};
 
 	useEffect(() => {
-		if (!didMount.current) {
-			didMount.current = true;
-			return;
-		}
-
 		const editLessonData = async () => {
 			fs.readFile('appId.json', 'utf-8', async (err, rawData) => {
 				if (err) throw new Error(err.message);

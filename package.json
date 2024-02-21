@@ -1,6 +1,6 @@
 {
 	"name": "LessonReminder",
-	"version": "1.1.0",
+	"version": "1.1.1",
 	"main": "dist-electron/main/index.js",
 	"description": "LessonReminder app",
 	"author": "makson94021",

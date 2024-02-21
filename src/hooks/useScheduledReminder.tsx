@@ -11,7 +11,6 @@ const cron = require('node-cron');
 const informaticGroupRegex = /[$-/][1-2][$-/]/gm;
 
 export default function useScheduledReminder(lesson: ILesson) {
-	const didMount = useRef(false);
 	const settings = useSelector((state: RootState) => state.settings);
 	const date = new Date();
 
@@ -73,11 +72,6 @@ export default function useScheduledReminder(lesson: ILesson) {
 	};
 
 	useEffect(() => {
-		if (!didMount.current) {
-			didMount.current = true;
-			return;
-		}
-
 		if (settings.disableNotifications) return;
 		if (date.getDay() === 0 || date.getDay() === 6) return;
 		console.log(lesson.time);
@@ -107,11 +101,6 @@ export default function useScheduledReminder(lesson: ILesson) {
 	}, [settings.disableNotifications, lesson.time]);
 
 	useEffect(() => {
-		if (!didMount.current) {
-			didMount.current = true;
-			return;
-		}
-
 		if (settings.disableNotifications || !settings.showSecondNotification)
 			return;
 		if (date.getDay() === 0 || date.getDay() === 6) return;
